@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Agregar Pasajero{% endblock %}
+
+{% block contenido %}
+<div class="card shadow-sm border-primary">
+    <div class="card-header bg-primary text-white">
+        <h3 class="mb-0"><i class="fas fa-user-plus me-2"></i>Registrar Nuevo Usuario Pasajero</h3>
+    </div>
+    <div class="card-body">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        
+        <form method="post" action="{% url 'agregar_usuario_pasajero' %}">
+            {% csrf_token %}
+            <div class="row g-3">
+                
+                <div class="col-md-6">
+                    <label for="id_nombre" class="form-label">Nombre Completo:</label>
+                    <input type="text" class="form-control" id="id_nombre" name="nombre" value="{{ nombre }}" required>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="id_email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="id_email" name="email" value="{{ email }}" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="id_telefono" class="form-label">Teléfono:</label>
+                    <input type="text" class="form-control" id="id_telefono" name="telefono" value="{{ telefono }}" required>
+                </div>
+
+                <div class="col-md-8">
+                    <label for="id_direccion" class="form-label">Dirección:</label>
+                    <input type="text" class="form-control" id="id_direccion" name="direccion" value="{{ direccion }}" required>
+                </div>
+                
+                <div class="col-md-4">
+                    <label for="id_genero" class="form-label">Género:</label>
+                    <select class="form-select" id="id_genero" name="genero" required>
+                        <option value="" {% if not genero %}selected{% endif %} disabled>Seleccione...</option>
+                        <option value="Femenino" {% if genero == 'Femenino' %}selected{% endif %}>Femenino</option>
+                        <option value="Masculino" {% if genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                        <option value="Otro" {% if genero == 'Otro' %}selected{% endif %}>Otro</option>
+                    </select>
+                </div>
+
+                <div class="col-md-8">
+                    <label for="id_ciudad" class="form-label">Ciudad:</label>
+                    <input type="text" class="form-control" id="id_ciudad" name="ciudad" value="{{ ciudad }}" required>
+                </div>
+
+            </div>
+            
+            <hr class="my-4">
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'ver_usuario_pasajero' %}" class="btn btn-secondary me-2"><i class="fas fa-arrow-left"></i> Cancelar</a>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save me-1"></i> Guardar Pasajero</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
